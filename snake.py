@@ -22,31 +22,31 @@ class Snake(turtle.Turtle):
         self.move()
 
     def keyListening(self):
-        turtle.onkeypress(self.up, "Up")
-        turtle.onkeypress(self.left, "Left")
-        turtle.onkeypress(self.right, "Right")
-        turtle.onkeypress(self.down, "Down")
+        turtle.onkeypress(self.turnUp, "Up")
+        turtle.onkeypress(self.turnLeft, "Left")
+        turtle.onkeypress(self.turnRight, "Right")
+        turtle.onkeypress(self.turnDown, "Down")
         turtle.listen()
 
-    def up(self):
+    def turnUp(self):
         if self.torwarding == 270:
             pass
         else:
             self.torwarding = 90
 
-    def down(self):
+    def turnDown(self):
         if self.torwarding == 90:
             pass
         else:
             self.torwarding = 270
 
-    def left(self):
+    def turnLeft(self):
         if self.torwarding == 0:
             pass
         else:
             self.torwarding = 180
 
-    def right(self):
+    def turnRight(self):
         if self.torwarding == 180:
             pass
         else:
@@ -143,7 +143,7 @@ class game:
         self.snake.draw()
         self.isOver()
         self.genBonus()
-        self.eating()
+        self.eatBonus()
 
     def overScene(self):
         self.state = 'over'
@@ -168,7 +168,7 @@ class game:
         if self.state == 'started':
             turtle.ontimer(self.isOver, 20)
 
-    def eating(self):
+    def eatBonus(self):
         # print(self.bonusList[0])
         # print([self.snake.xcor(),self.snake.ycor()])
         if (len(self.bonusList) > 0 and self.snake.xcor() < self.bonusList[0][1]+1 and self.snake.xcor() > self.bonusList[0][1] - 1 and self.snake.ycor() < self.bonusList[0][2] + 1 and self.snake.ycor() > self.bonusList[0][2] - 1):
@@ -176,7 +176,7 @@ class game:
             id = self.bonusList.pop()[0]
             self.bonus.clearstamp(id)
 
-        turtle.ontimer(self.eating, 20)
+        turtle.ontimer(self.eatBonus, 20)
 
     def genBonus(self):
         if len(self.bonusList) == 0 and self.state == "started":
